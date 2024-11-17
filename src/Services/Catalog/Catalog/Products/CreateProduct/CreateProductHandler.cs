@@ -1,5 +1,4 @@
-﻿using BuildingBlocks.CQRS.Command;
-using BuildingBlocks.CQRS.Commands;
+﻿using BuildingBlocks.CQRS.Commands;
 using Catalog.Models;
 
 namespace Catalog.Products.CreateProduct;
