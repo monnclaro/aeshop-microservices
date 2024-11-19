@@ -4,7 +4,7 @@ builder.Services.AddCarter();
 //Marten
 builder.Services.AddMarten(o =>
 {
-    o.Connection(builder.Configuration.GetConnectionString("DefaultConnection")!);
+    o.Connection(builder.Configuration.GetConnectionString("Database")!);
 }).UseLightweightSessions();
 
 //Mediatr
