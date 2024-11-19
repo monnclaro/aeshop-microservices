@@ -1,4 +1,5 @@
 ﻿using Catalog.Products.CreateProduct;
+using Catalog.Products.UpdateProduct;
 
 namespace Catalog.Models;
 
@@ -14,6 +15,15 @@ public class Product
     public void Create(CreateProductCommand command)
     {
         Id = Guid.NewGuid();
+        Name = command.Name;
+        Description = command.Description;
+        ImageFile = command.ImageFile;
+        Price = command.Price;
+        Categories = command.Categories;
+    }
+    
+    public void Update(UpdateProductCommand command)
+    {
         Name = command.Name;
         Description = command.Description;
         ImageFile = command.ImageFile;
