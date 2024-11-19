@@ -5,7 +5,7 @@ using Catalog.Models;
 namespace Catalog.Products.DeleteProduct;
 
 public record DeleteProductCommand(Guid Id) : ICommand<DeleteProductResult>;
-public record DeleteProductResult(bool Deleted);   
+public record DeleteProductResult(bool Success);   
 
 internal class DeleteProductHandler(IDocumentSession documentSession) : ICommandHandler<DeleteProductCommand, DeleteProductResult>
 {

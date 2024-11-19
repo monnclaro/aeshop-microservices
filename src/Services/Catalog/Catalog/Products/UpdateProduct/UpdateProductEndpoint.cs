@@ -1,7 +1,7 @@
 ﻿namespace Catalog.Products.UpdateProduct;
 
 public record UpdateProductRequest(Guid Id, string Name, string Description, string ImageFile, decimal Price, List<string> Categories) : IRequest;
-public record UpdateProductResponse(bool Updated);   
+public record UpdateProductResponse(bool Success);   
 
 public class UpdateProductEndpoint : ICarterModule
 {

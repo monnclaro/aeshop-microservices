@@ -5,7 +5,7 @@ using Catalog.Models;
 namespace Catalog.Products.UpdateProduct;
 
 public record UpdateProductCommand(Guid Id, string Name, string Description, string ImageFile, decimal Price, List<string> Categories) : ICommand<UpdateProductResult>;
-public record UpdateProductResult(bool Updated);   
+public record UpdateProductResult(bool Success);   
 
 internal class UpdateProductHandler(IDocumentSession documentSession) : ICommandHandler<UpdateProductCommand, UpdateProductResult>
 {

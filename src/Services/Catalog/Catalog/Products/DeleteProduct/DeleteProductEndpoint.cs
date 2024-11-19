@@ -1,6 +1,6 @@
 ﻿namespace Catalog.Products.DeleteProduct;
 
-public record DeleteProductResponse(bool Deleted);   
+public record DeleteProductResponse(bool Success);   
 
 public class DeleteProductEndpoint : ICarterModule
 {
