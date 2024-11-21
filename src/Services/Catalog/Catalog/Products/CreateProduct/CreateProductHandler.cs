@@ -1,10 +1,11 @@
 ﻿using BuildingBlocks.CQRS.Commands;
 using Catalog.Models;
+using FluentValidation;
 
 namespace Catalog.Products.CreateProduct;
 
 public record CreateProductCommand(string Name, string Description, string ImageFile, decimal Price, List<string> Categories) : ICommand<CreateProductResult>;
-public record CreateProductResult(Guid Id);   
+public record CreateProductResult(Guid Id);
 
 internal class CreateProductHandler(IDocumentSession documentSession) : ICommandHandler<CreateProductCommand, CreateProductResult>
 {
