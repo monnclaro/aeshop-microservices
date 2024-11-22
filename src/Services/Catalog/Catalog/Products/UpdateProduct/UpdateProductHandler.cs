@@ -15,7 +15,7 @@ internal class UpdateProductHandler(IDocumentSession documentSession) : ICommand
 
         if (product is null)
         {
-            throw new ProductNotFoundException();
+            throw new ProductNotFoundException(command.Id);
         }
 
         product.Update(command);

@@ -2,7 +2,7 @@
 
 namespace Catalog.Products.CreateProduct.Validators;
 
-public class CreateProductCommandValidator : AbstractValidator<CreateProductCommand>
+public class CreateProductCommandValidator: AbstractValidator<CreateProductCommand>
 {
     public CreateProductCommandValidator()
     {
@@ -12,4 +12,4 @@ public class CreateProductCommandValidator : AbstractValidator<CreateProductComm
         RuleFor(r => r.Price).GreaterThan(0).WithMessage("Price must be greater than zero.");
         RuleFor(r => r.Categories).NotEmpty().WithMessage("A category is required.");
     }
-};
+}

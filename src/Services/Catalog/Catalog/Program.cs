@@ -1,4 +1,5 @@
 using BuildingBlocks.Behaviors;
+using BuildingBlocks.Exceptions.CustomExceptionHandler;
 using FluentValidation;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,6 +13,9 @@ builder.Services.AddMarten(o =>
 
 builder.Services.AddValidatorsFromAssembly(typeof(Program).Assembly);
 
+//Cross-Cutting Services
+builder.Services.AddExceptionHandler<CustomExceptionHandler>();
+
 //Mediatr
 builder.Services.AddMediatR(c =>
 {
@@ -21,5 +25,6 @@ builder.Services.AddMediatR(c =>
       
 var app = builder.Build();
 app.MapCarter();
+app.UseExceptionHandler(o => {});
 
 app.Run();

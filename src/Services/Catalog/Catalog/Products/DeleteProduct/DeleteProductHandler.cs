@@ -15,7 +15,7 @@ internal class DeleteProductHandler(IDocumentSession documentSession) : ICommand
 
         if (product is null)
         {
-            throw new ProductNotFoundException();
+            throw new ProductNotFoundException(command.Id);
         }
         
         documentSession.Delete(product);
