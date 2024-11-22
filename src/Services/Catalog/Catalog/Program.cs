@@ -1,5 +1,6 @@
 using BuildingBlocks.Behaviors;
 using BuildingBlocks.Exceptions.CustomExceptionHandler;
+using Catalog.Infrastructure.Seeders;
 using FluentValidation;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,6 +11,7 @@ builder.Services.AddMarten(o =>
 {
     o.Connection(builder.Configuration.GetConnectionString("Database")!);
 }).UseLightweightSessions();
+builder.Services.InitializeMartenWith<CatalogInitialDataSeeder>();
 
 builder.Services.AddValidatorsFromAssembly(typeof(Program).Assembly);
 
