@@ -2,6 +2,8 @@ using BuildingBlocks.Behaviors;
 using BuildingBlocks.Exceptions.CustomExceptionHandler;
 using Catalog.Infrastructure.Seeders;
 using FluentValidation;
+using HealthChecks.UI.Client;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddCarter();
@@ -14,6 +16,8 @@ builder.Services.AddMarten(o =>
 builder.Services.InitializeMartenWith<CatalogInitialDataSeeder>();
 
 builder.Services.AddValidatorsFromAssembly(typeof(Program).Assembly);
+
+builder.Services.AddHealthChecks().AddNpgSql(builder.Configuration.GetConnectionString("Database")!);
 
 //Cross-Cutting Services
 builder.Services.AddExceptionHandler<CustomExceptionHandler>();
@@ -29,5 +33,8 @@ builder.Services.AddMediatR(c =>
 var app = builder.Build();
 app.MapCarter();
 app.UseExceptionHandler(o => {});
-
+app.UseHealthChecks("/health", new HealthCheckOptions
+{
+    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+});
 app.Run();
