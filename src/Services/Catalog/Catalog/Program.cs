@@ -21,6 +21,7 @@ builder.Services.AddMediatR(c =>
 {
     c.RegisterServicesFromAssembly(typeof(Program).Assembly);
     c.AddOpenBehavior(typeof(ValidationBehavior<,>));
+    c.AddOpenBehavior(typeof(LogginBehavior<,>));
 });
       
 var app = builder.Build();
