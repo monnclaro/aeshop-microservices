@@ -7,11 +7,18 @@ namespace Catalog.Products.GetProductById;
 public record GetProductByIdQuery(Guid Id) : IQuery<GetProductByIdResult>;
 public record GetProductByIdResult(Product Product);   
 
-internal class GetProductByIdHandler(IDocumentSession documentSession) : IQueryHandler<GetProductByIdQuery, GetProductByIdResult>
+internal class GetProductByIdHandler : IQueryHandler<GetProductByIdQuery, GetProductByIdResult>
 {
+    private readonly IDocumentSession _documentSession;
+
+    public GetProductByIdHandler(IDocumentSession documentSession)
+    {
+        _documentSession = documentSession;
+    }
+
     public async Task<GetProductByIdResult> Handle(GetProductByIdQuery query, CancellationToken cancellationToken)
     {
-        var product = await documentSession.LoadAsync<Product>(query.Id, cancellationToken);
+        var product = await _documentSession.LoadAsync<Product>(query.Id, cancellationToken);
 
         if (product is null)
         {

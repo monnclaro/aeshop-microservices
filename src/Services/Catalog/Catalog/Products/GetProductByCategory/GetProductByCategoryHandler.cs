@@ -7,13 +7,20 @@ namespace Catalog.Products.GetProductByCategory;
 public record GetProductByCategoryQuery(string Category) : IQuery<GetProductByCategoryResult>;
 public record GetProductByCategoryResult(IEnumerable<Product> Products);   
 
-internal class GetProductByCategoryHandler(IDocumentSession documentSession) : IQueryHandler<GetProductByCategoryQuery, GetProductByCategoryResult>
+internal class GetProductByCategoryHandler : IQueryHandler<GetProductByCategoryQuery, GetProductByCategoryResult>
 {
+    private readonly IDocumentSession _documentSession;
+    
+    public GetProductByCategoryHandler(IDocumentSession documentSession)
+    {
+        _documentSession = documentSession;
+    }
+    
     public async Task<GetProductByCategoryResult> Handle(GetProductByCategoryQuery query, CancellationToken cancellationToken)
     {
-        var products = await documentSession.Query<Product>()
+        var products = await _documentSession.Query<Product>()
             .Where(l => l.Categories.Contains(query.Category))
-            .ToListAsync();
+            .ToListAsync(token: cancellationToken);
         
         return new GetProductByCategoryResult(products);
     }
