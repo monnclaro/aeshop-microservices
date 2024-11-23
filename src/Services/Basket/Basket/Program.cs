@@ -1,8 +1,10 @@
 using BuildingBlocks.Behaviors;
 using Carter;
+using FluentValidation;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddCarter();
+builder.Services.AddValidatorsFromAssembly(typeof(Program).Assembly);
 
 //Mediatr
 builder.Services.AddMediatR(c =>
@@ -14,5 +16,4 @@ builder.Services.AddMediatR(c =>
 
 var app = builder.Build();
 app.MapCarter();
-
 app.Run();
